@@ -2,16 +2,16 @@
 
 import Navbar from "../component/Navbar";
 import CardHome from "../component/CardHome";
-// import Banner from "../component/Banner";
+import Footer from "../component/Footer";
 
 const Homepage = () => {
   return (
-    <div className="min-h-screen">
+    <div className="flex flex-col min-h-screen">
       <Navbar />
-      <div className="bg-custom pt-12 flex justify-center items-center ">
+      <div className="flex-grow">
         <CardHome />
       </div>
-      <div>{/* <Banner /> */}</div>
+      <Footer />
     </div>
   );
 };

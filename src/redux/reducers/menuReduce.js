@@ -3,17 +3,17 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  user: [],
+  menu: [],
   loading: false,
   error: null,
 };
 
-const userSlice = createSlice({
-  name: "user",
+const menuSlice = createSlice({
+  name: "menu",
   initialState,
   reducers: {
-    setUser: (state, action) => {
-      state.user = action.payload;
+    setMenu: (state, action) => {
+      state.menu = action.payload;
     },
     setLoading: (state, action) => {
       state.loading = action.payload;
@@ -24,5 +24,5 @@ const userSlice = createSlice({
   },
 });
 
-export const { setUser, setLoading, setError } = userSlice.actions;
-export default userSlice.reducer;
+export const { setMenu, setLoading, setError } = menuSlice.actions;
+export default menuSlice.reducer;

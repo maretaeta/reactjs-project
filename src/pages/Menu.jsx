@@ -1,116 +1,121 @@
 /** @format */
+import { useState } from "react";
+import Footer from "../component/Footer";
 
-import  { useState } from "react";
-import "./index.css"; // Ensure Tailwind is imported here
+const categories = [
+  { id: "seasonal", name: "Seasonal Product" },
+  { id: "bestseller", name: "Best Seller" },
+  { id: "coffee", name: "Coffee" },
+];
+
+const menuItems = {
+  seasonal: [
+    {
+      name: "Raisin Delight Frappe",
+      price: "50.000",
+      description: "A timeless classic...",
+      image: "url_to_image",
+    },
+    {
+      name: "Green Tea Latte",
+      price: "47.000",
+      description: "A perfect combination...",
+      image: "url_to_image",
+    },
+    {
+      name: "Malaka Brulee Latte",
+      price: "40.000",
+      description: "A caffe latte...",
+      image: "url_to_image",
+    },
+  ],
+  bestseller: [
+    {
+      name: "Latte Freddo",
+      price: "39.000",
+      description: "A rich Espresso...",
+      image: "url_to_image",
+    },
+    {
+      name: "Vanilla Latte",
+      price: "45.000",
+      description: "A rich Espresso...",
+      image: "url_to_image",
+    },
+    {
+      name: "Green Tea Latte",
+      price: "47.000",
+      description: "A perfect combination...",
+      image: "url_to_image",
+    },
+  ],
+  coffee: [
+    {
+      name: "Caramel Machiatto",
+      price: "50.000",
+      description: "A delightful...",
+      image: "url_to_image",
+    },
+    {
+      name: "Latte Freddo",
+      price: "39.000",
+      description: "A rich Espresso...",
+      image: "url_to_image",
+    },
+    {
+      name: "Vanilla Latte",
+      price: "45.000",
+      description: "A rich Espresso...",
+      image: "url_to_image",
+    },
+  ],
+};
 
 const Menu = () => {
-  const [selectedCategory, setSelectedCategory] = useState("Seasonal Product");
-
-  const menuData = {
-    "Seasonal Product": [
-      {
-        title: "Raisin Delight Frappe",
-        description: "A creamy, sweet, and flavorful frappe...",
-        price: "50.000",
-      },
-      {
-        title: "Green Tea Latte",
-        description: "Special green tea and fresh milk...",
-        price: "47.000",
-      },
-      {
-        title: "Malaka Brulee Latte",
-        description: "A latte packed with an intense caramel flavor...",
-        price: "40.000",
-      },
-    ],
-    "Best Seller": [
-      {
-        title: "Latte Freddo",
-        description: "Perfectly steamed milk topped with brown sugar...",
-        price: "39.000",
-      },
-      {
-        title: "Vanilla Latte",
-        description: "A rich latte with perfectly steamed milk...",
-        price: "45.000",
-      },
-      {
-        title: "Green Tea Latte",
-        description: "Special green tea and fresh milk...",
-        price: "47.000",
-      },
-    ],
-    Coffee: [
-      {
-        title: "Caramel Macchiato",
-        description: "A delicious espresso drink...",
-        price: "50.000",
-      },
-      {
-        title: "Latte Freddo",
-        description: "Perfectly steamed milk topped with brown sugar...",
-        price: "39.000",
-      },
-      {
-        title: "Vanilla Latte",
-        description: "A rich latte with perfectly steamed milk...",
-        price: "45.000",
-      },
-    ],
-  };
-
-  const CategoryTabs = ({ selectedCategory, setCategory }) => {
-    const categories = ["Seasonal Product", "Best Seller", "Coffee"];
-    return (
-      <div className="flex justify-around border-b mb-4">
-        {categories.map((category, index) => (
-          <button
-            key={index}
-            onClick={() => setCategory(category)}
-            className={`px-4 py-2 font-semibold ${
-              selectedCategory === category ? "border-b-2 border-black" : ""
-            }`}
-          >
-            {category}
-          </button>
-        ))}
-      </div>
-    );
-  };
-
-  const MenuItem = ({ item }) => {
-    return (
-      <div className="flex justify-between items-center border-b py-4">
-        <div>
-          <h3 className="text-lg font-bold">{item.title}</h3>
-          <p className="text-sm text-gray-600">{item.description}</p>
-        </div>
-        <div className="text-right">
-          <span className="block font-bold">{item.price}</span>
-        </div>
-      </div>
-    );
-  };
-
-  const MenuList = ({ menuItems }) => {
-    return (
-      <div className="mt-4">
-        {menuItems.map((item, index) => (
-          <MenuItem key={index} item={item} />
-        ))}
-      </div>
-    );
-  };
+  const [activeCategory, setActiveCategory] = useState("seasonal");
 
   return (
-    <div className="max-w-lg mx-auto p-4">
-      <h1 className="text-2xl font-bold text-center mb-4">MENU</h1>
-      <CategoryTabs
-        selectedCategory={selectedCategory}
-        setCategory={setSelectedCategory}
-      />
-      <MenuList menuItems={menuData[selectedCategory]} />
+    <div className="min-h-screen bg-white">
+      <div className=" p-10 mx-auto max-w-6xl">
+        <h1 className="text-3xl font-bold mb-20 text-center">Menu</h1>
+
+        <div className="flex justify-between border-b mb-6">
+          {categories.map((category) => (
+            <button
+              key={category.id}
+              onClick={() => setActiveCategory(category.id)}
+              className={`flex-1 py-4 px-6 text-center text-lg font-semibold transition-colors duration-300 ${
+                activeCategory === category.id
+                  ? "border-b-4 border-black text-black"
+                  : "text-gray-500 hover:text-black"
+              }`}
+            >
+              {category.name}
+            </button>
+          ))}
+        </div>
+
+        <div className="p-6">
+          {menuItems[activeCategory].map((item, index) => (
+            <div key={index} className="flex items-center mb-6">
+              <img
+                src={item.image}
+                alt={item.name}
+                className="w-20 h-20 object-cover rounded-lg"
+              />
+              <div className="ml-6">
+                <h4 className="text-xl font-semibold">{item.name}</h4>
+                <p className="text-gray-500">{item.description}</p>
+                <p className="text-black mt-2 text-lg font-bold">
+                  {item.price}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <Footer />
     </div>
   );
 };

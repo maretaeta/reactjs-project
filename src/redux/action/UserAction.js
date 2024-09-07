@@ -1,35 +1,91 @@
 /** @format */
 
 import axios from "axios";
-import { setUser } from "../reducers/authReduce";
+import { setUser } from "../reducers/userReduce";
 import { toast } from "react-toastify";
 
-export const getUser = (access_token) => async (dispatch) => {
+// Fungsi untuk mendapatkan user dari API Home
+export const getUser = () => async (dispatch) => {
   try {
-    // Set authorization header with Bearer token
-    const authHeader = `Bearer ${access_token}`;
+    const access_token = localStorage.getItem("access_token");
 
-    // API request
+    if (!access_token) {
+      throw new Error("Access token is missing");
+    }
+
     const response = await axios.get("https://soal.staging.id/api/home", {
       headers: {
-        Authorization: authHeader,
+        Authorization: access_token, // Access token sudah termasuk "Bearer"
+        "Content-Type": "application/json",
       },
     });
 
     if (response.status === 200) {
-      console.log("Response Data:", response.data);
-      // Dispatch the result from the response to the Redux store
-      dispatch(setUser(response.data.result));
+      const { result } = response.data;
+
+      if (result) {
+        dispatch(setUser(result));
+        console.log("Response Data:", result);
+      } else {
+        console.error("Data is null or undefined:", response.data);
+        toast.error("Failed to fetch data: Data is null");
+      }
     } else {
       console.error("Unexpected status code:", response.status);
+      toast.error(
+        `Failed to fetch data: Unexpected status code ${response.status}`
+      );
     }
   } catch (error) {
-    // Handle errors from axios
     if (axios.isAxiosError(error)) {
-      console.error("Error response:", error.response);
-      toast.error(error?.response?.data?.message || "Failed to fetch data");
+      console.error("Axios Error:", error.response);
+      toast.error(error.response?.data?.message || "Failed to fetch data");
     } else {
-      toast.error(error.message);
+      console.error("Error:", error.message);
+      toast.error(error.message || "An unknown error occurred");
+    }
+  }
+};
+
+// Fungsi untuk mendapatkan data dari API Menu
+export const getMenu = () => async () => {
+  try {
+    const access_token = localStorage.getItem("access_token");
+
+    if (!access_token) {
+      throw new Error("Access token is missing");
+    }
+
+    const response = await axios.get("https://soal.staging.id/api/menu", {
+      headers: {
+        Authorization: access_token, // Access token sudah termasuk "Bearer"
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (response.status === 200) {
+      const data = response.data;
+
+      if (data) {
+        console.log("Menu Data:", data);
+        // Dispatch any actions needed for menu data
+      } else {
+        console.error("Data is null or undefined:", data);
+        toast.error("Failed to fetch data: Data is null");
+      }
+    } else {
+      console.error("Unexpected status code:", response.status);
+      toast.error(
+        `Failed to fetch data: Unexpected status code ${response.status}`
+      );
+    }
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      console.error("Axios Error:", error.response);
+      toast.error(error.response?.data?.message || "Failed to fetch data");
+    } else {
+      console.error("Error:", error.message);
+      toast.error(error.message || "An unknown error occurred");
     }
   }
 };

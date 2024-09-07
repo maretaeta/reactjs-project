@@ -18,15 +18,17 @@ export const login = (data, navigate) => async (dispatch) => {
       formData,
       {
         headers: {
-          "Content-Type": "multipart/form-data",
+          "Content-Type": "application/json",
         },
       }
     );
 
     const { token_type, access_token } = response.data;
-    const authHeader = `${token_type} ${access_token}`;
 
-    dispatch(setToken(authHeader));
+    localStorage.setItem("token_type", token_type);
+    localStorage.setItem("access_token", access_token);
+
+    dispatch(setToken(access_token));
     dispatch(setIsLoggedIn(true));
 
     navigate("/home");

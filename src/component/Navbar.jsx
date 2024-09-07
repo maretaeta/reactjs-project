@@ -16,7 +16,7 @@ const Navbar = () => {
   return (
     <div
       className={`fixed w-full left-0 top-0 px-5 md:px-10 p-2 drop-shadow-sm z-10 
-      ${sticky ? "bg-white text-white h-16 items-center" : "bg-white "}`}
+      ${sticky ? "bg-white text-white h-20 items-center" : "bg-white "}`}
     >
       <div className="flex items-center justify-between z-10 gap-6 cursor-pointer h-14">
         <div className="flex">

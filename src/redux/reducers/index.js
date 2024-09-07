@@ -2,9 +2,11 @@
 
 import { combineReducers } from "@reduxjs/toolkit";
 import auth from "../reducers/authReduce";
-import userSlice from "../reducers/userReduce";
+import user from "../reducers/userReduce";
+import menuReduce from "./menuReduce";
 
 export default combineReducers({
+  user,
   auth,
-  userSlice,
+  menuReduce,
 });
