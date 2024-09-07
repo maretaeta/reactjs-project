@@ -138,7 +138,7 @@ const CardHome = () => {
       </div>
 
       {user?.result?.banner && user.result.banner.length > 0 && (
-        <div className="w-full h-64 sm:h-80 md:h-96 lg:h-[28rem] relative bg-white mb-8">
+        <div className="w-full h-40  md:h-64 lg:h-80 relative bg-white mb-8">
           <Swiper
             slidesPerView={1}
             spaceBetween={10}
@@ -164,10 +164,13 @@ const CardHome = () => {
               </SwiperSlide>
             ))}
           </Swiper>
-          <div className="custom-pagination absolute bottom-4 left-4 z-10"></div>
-          
+
+         
+          <div className="flex justify-between items-center mt-4 px-4">
+            <div className="custom-pagination"></div>
+            <button className="text-green-700 w-full text-end">View All</button>
+          </div>
         </div>
-       
       )}
     </div>
   );
