@@ -4,7 +4,6 @@ import axios from "axios";
 import { setUser } from "../reducers/userReduce";
 import { toast } from "react-toastify";
 
-// Fungsi untuk mendapatkan user dari API Home
 export const getUser = () => async (dispatch) => {
   try {
     const access_token = localStorage.getItem("access_token");
@@ -15,7 +14,7 @@ export const getUser = () => async (dispatch) => {
 
     const response = await axios.get("https://soal.staging.id/api/home", {
       headers: {
-        Authorization: access_token, // Access token sudah termasuk "Bearer"
+        Authorization: access_token,
         "Content-Type": "application/json",
       },
     });
@@ -47,7 +46,6 @@ export const getUser = () => async (dispatch) => {
   }
 };
 
-// Fungsi untuk mendapatkan data dari API Menu
 export const getMenu = () => async () => {
   try {
     const access_token = localStorage.getItem("access_token");
@@ -58,7 +56,7 @@ export const getMenu = () => async () => {
 
     const response = await axios.get("https://soal.staging.id/api/menu", {
       headers: {
-        Authorization: access_token, // Access token sudah termasuk "Bearer"
+        Authorization: access_token,
         "Content-Type": "application/json",
       },
     });
@@ -68,7 +66,6 @@ export const getMenu = () => async () => {
 
       if (data) {
         console.log("Menu Data:", data);
-        // Dispatch any actions needed for menu data
       } else {
         console.error("Data is null or undefined:", data);
         toast.error("Failed to fetch data: Data is null");

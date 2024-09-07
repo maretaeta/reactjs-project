@@ -7,8 +7,6 @@ import menu from "../assets/menu1.png";
 const Footer = () => {
   return (
     <div className="w-full bg-white p-4 shadow-lg mt-10">
-      {" "}
-      {/* Tambah mt-10 */}
       <div className="container mx-auto flex justify-around items-center">
         <Link
           to="/home"
